@@ -1,0 +1,554 @@
+{
+  "questionnaireId": 1000,
+  //Would rather give questionnaireitems more explicit names
+  "questionnaireItems": [ //SurveyItems
+    {
+      "subjectId": 2605515,
+      "orderNumber": 0,
+      //Why not just use localization file 
+      "texts": {
+        "nl-NL": "Mijn werk", 
+        "en-US": "My work"
+      },
+      "itemType": 0, //Assume itemtype 0 = subject, 1 = question, 2 = category?
+      "questionnaireItems": [ //QuestionnaireItems
+        {
+          "questionId": 3807638,
+          "subjectId": 2605515, //Seems a bit unnecessary to have the subject id repeated when this already belongs to this object
+          "answerCategoryType": 0, // Do not know what this type eqauls to, assume it is some enum for MultiAnswer, SingleAnswer, Open or something of the like
+          "orderNumber": 0,
+          "texts": {
+            "nl-NL": "Ik ben blij met mijn werk",
+            "en-US": "I am happy with my work"
+          },
+          "itemType": 1,
+          "questionnaireItems": [ //CategoryItems
+            {
+              //Changed answerid to be the same for anything that is the same, no need for different IDs
+              "answerId": 17969124, //Strongly Disagree is used multiple times but the ID is always different, why? If I use a lookup table (dictionary), would want the id the same.  This is for all categories in this json.
+              "questionId": 3807638, //Already belongs to the questionnaire object, maybe not necessary?
+              "answerType": 1,
+              "orderNumber": 0,
+              "texts": {
+                "nl-NL": "Helemaal mee oneens",
+                "en-US": "Strongly disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969123,
+              "questionId": 3807638,
+              "answerType": 1,
+              "orderNumber": 1,
+              "texts": {
+                "nl-NL": "Mee oneens",
+                "en-US": "Disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969122,
+              "questionId": 3807638,
+              "answerType": 1,
+              "orderNumber": 2,
+              "texts": {
+                "nl-NL": "Niet mee eens/ niet mee oneens",
+                "en-US": "Neither agree nor disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969121,
+              "questionId": 3807638,
+              "answerType": 1,
+              "orderNumber": 3,
+              "texts": {
+                "nl-NL": "Mee eens",
+                "en-US": "Agree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969120,
+              "questionId": 3807638,
+              "answerType": 1,
+              "orderNumber": 4,
+              "texts": {
+                "nl-NL": "Helemaal mee eens",
+                "en-US": "Strongly agree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            }
+          ]
+        },
+        {
+          "questionId": 3807643,
+          "subjectId": 2605515,
+          "answerCategoryType": 0,
+          "orderNumber": 1,
+          "texts": {
+            "en-US": "I enjoy doing my work",
+            "nl-NL": "Ik doe mijn werk met plezier"
+          },
+          "itemType": 1,
+          "questionnaireItems": [
+            {
+              "answerId": 17969124,
+              "questionId": 3807643,
+              "answerType": 1,
+              "orderNumber": 0,
+              "texts": {
+                "nl-NL": "Helemaal mee oneens",
+                "en-US": "Strongly disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969123,
+              "questionId": 3807643,
+              "answerType": 1,
+              "orderNumber": 1,
+              "texts": {
+                "nl-NL": "Mee oneens",
+                "en-US": "Disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969122,
+              "questionId": 3807643,
+              "answerType": 1,
+              "orderNumber": 2,
+              "texts": {
+                "nl-NL": "Niet mee eens/ niet mee oneens",
+                "en-US": "Neither agree nor disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969121,
+              "questionId": 3807643,
+              "answerType": 1,
+              "orderNumber": 3,
+              "texts": {
+                "nl-NL": "Mee eens",
+                "en-US": "Agree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969120,
+              "questionId": 3807643,
+              "answerType": 1,
+              "orderNumber": 4,
+              "texts": {
+                "nl-NL": "Helemaal mee eens",
+                "en-US": "Strongly agree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            }
+          ]
+        },
+        {
+          "questionId": 3851855,
+          "subjectId": 2605515,
+          "answerCategoryType": 0,
+          "orderNumber": 2,
+          "texts": {
+            "nl-NL": "Ik vind mijn werk uitdagend",
+            "en-US": "My work is enjoyably challenging"
+          },
+          "itemType": 1,
+          "questionnaireItems": [
+            {
+              "answerId": 17969124,
+              "questionId": 3851855,
+              "answerType": 1,
+              "orderNumber": 0,
+              "texts": {
+                "nl-NL": "Helemaal mee oneens",
+                "en-US": "Strongly disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969123,
+              "questionId": 3851855,
+              "answerType": 1,
+              "orderNumber": 1,
+              "texts": {
+                "nl-NL": "Mee oneens",
+                "en-US": "Disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969122,
+              "questionId": 3851855,
+              "answerType": 1,
+              "orderNumber": 2,
+              "texts": {
+                "nl-NL": "Niet mee eens/ niet mee oneens",
+                "en-US": "Neither agree nor disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969121,
+              "questionId": 3851855,
+              "answerType": 1,
+              "orderNumber": 3,
+              "texts": {
+                "nl-NL": "Mee eens",
+                "en-US": "Agree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969120,
+              "questionId": 3851855,
+              "answerType": 1,
+              "orderNumber": 4,
+              "texts": {
+                "nl-NL": "Helemaal mee eens",
+                "en-US": "Strongly agree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            }
+          ]
+        },
+        {
+          "questionId": 3807701,
+          "subjectId": 2605515,
+          "answerCategoryType": 0,
+          "orderNumber": 3,
+          "texts": {
+            "nl-NL": "Ik heb voldoende verantwoordelijkheid in mijn werk",
+            "en-US": "I have sufficient responsibilities in my work"
+          },
+          "itemType": 1,
+          "questionnaireItems": [
+            {
+              "answerId": 17969124,
+              "questionId": 3807701,
+              "answerType": 1,
+              "orderNumber": 0,
+              "texts": {
+                "nl-NL": "Helemaal mee oneens",
+                "en-US": "Strongly disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969123,
+              "questionId": 3807701,
+              "answerType": 1,
+              "orderNumber": 1,
+              "texts": {
+                "nl-NL": "Mee oneens",
+                "en-US": "Disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969122,
+              "questionId": 3807701,
+              "answerType": 1,
+              "orderNumber": 2,
+              "texts": {
+                "nl-NL": "Niet mee eens/ niet mee oneens",
+                "en-US": "Neither agree nor disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969121,
+              "questionId": 3807701,
+              "answerType": 1,
+              "orderNumber": 3,
+              "texts": {
+                "nl-NL": "Mee eens",
+                "en-US": "Agree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969120,
+              "questionId": 3807701,
+              "answerType": 1,
+              "orderNumber": 4,
+              "texts": {
+                "nl-NL": "Helemaal mee eens",
+                "en-US": "Strongly agree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            }
+          ]
+        },
+        {
+          "questionId": 3807644,
+          "subjectId": 2605515,
+          "answerCategoryType": 0,
+          "orderNumber": 4,
+          "texts": {
+            "nl-NL": "Ik heb het gevoel dat ik met mijn werk een bijdrage lever",
+            "en-US": "I feel I contribute meaningfully through my work"
+          },
+          "itemType": 1,
+          "questionnaireItems": [
+            {
+              "answerId": 17969124,
+              "questionId": 3807644,
+              "answerType": 1,
+              "orderNumber": 0,
+              "texts": {
+                "nl-NL": "Helemaal mee oneens",
+                "en-US": "Strongly disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969123,
+              "questionId": 3807644,
+              "answerType": 1,
+              "orderNumber": 1,
+              "texts": {
+                "nl-NL": "Mee oneens",
+                "en-US": "Disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969122,
+              "questionId": 3807644,
+              "answerType": 1,
+              "orderNumber": 2,
+              "texts": {
+                "nl-NL": "Niet mee eens/ niet mee oneens",
+                "en-US": "Neither agree nor disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969121,
+              "questionId": 3807644,
+              "answerType": 1,
+              "orderNumber": 3,
+              "texts": {
+                "nl-NL": "Mee eens",
+                "en-US": "Agree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969120,
+              "questionId": 3807644,
+              "answerType": 1,
+              "orderNumber": 4,
+              "texts": {
+                "nl-NL": "Helemaal mee eens",
+                "en-US": "Strongly agree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "subjectId": 2605516,
+      "orderNumber": 1,
+      "texts": {
+        "nl-NL": "Mijn rol",
+        "en-US": "My role"
+      },
+      "itemType": 0,
+      "questionnaireItems": [
+        {
+          "questionId": 3851843,
+          "subjectId": 2605516,
+          "answerCategoryType": 0,
+          "orderNumber": 0,
+          "texts": {
+            "nl-NL": "Ik weet hoe mijn werk bijdraagt aan de visie en doelen van Organisatie",
+            "en-US": "It is clear to me how my work contributes to the organisation's strategy"
+          },
+          "itemType": 1,
+          "questionnaireItems": [
+            {
+              "answerId": 17969124,
+              "questionId": 3851843,
+              "answerType": 1,
+              "orderNumber": 0,
+              "texts": {
+                "nl-NL": "Helemaal mee oneens",
+                "en-US": "Strongly disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969123,
+              "questionId": 3851843,
+              "answerType": 1,
+              "orderNumber": 1,
+              "texts": {
+                "nl-NL": "Mee oneens",
+                "en-US": "Disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969122,
+              "questionId": 3851843,
+              "answerType": 1,
+              "orderNumber": 2,
+              "texts": {
+                "nl-NL": "Niet mee eens/ niet mee oneens",
+                "en-US": "Neither agree nor disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969121,
+              "questionId": 3851843,
+              "answerType": 1,
+              "orderNumber": 3,
+              "texts": {
+                "nl-NL": "Mee eens",
+                "en-US": "Agree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969120,
+              "questionId": 3851843,
+              "answerType": 1,
+              "orderNumber": 4,
+              "texts": {
+                "nl-NL": "Helemaal mee eens",
+                "en-US": "Strongly agree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            }
+          ]
+        },
+        {
+          "questionId": 3851856,
+          "subjectId": 2605516,
+          "answerCategoryType": 0,
+          "orderNumber": 1,
+          "texts": {
+            "nl-NL": "Ik geef in de dagelijkse praktijk feedback aan de mensen met wie ik samenwerk",
+            "en-US": "I give feedback to the people I work with in the daily practice of work"
+          },
+          "itemType": 1,
+          "questionnaireItems": [
+            {
+              "answerId": 17969124,
+              "questionId": 3851856,
+              "answerType": 1,
+              "orderNumber": 0,
+              "texts": {
+                "nl-NL": "Helemaal mee oneens",
+                "en-US": "Strongly disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969123,
+              "questionId": 3851856,
+              "answerType": 1,
+              "orderNumber": 1,
+              "texts": {
+                "nl-NL": "Mee oneens",
+                "en-US": "Disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969122,
+              "questionId": 3851856,
+              "answerType": 1,
+              "orderNumber": 2,
+              "texts": {
+                "nl-NL": "Niet mee eens/ niet mee oneens",
+                "en-US": "Neither agree nor disagree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969121,
+              "questionId": 3851856,
+              "answerType": 1,
+              "orderNumber": 3,
+              "texts": {
+                "nl-NL": "Mee eens",
+                "en-US": "Agree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            },
+            {
+              "answerId": 17969120,
+              "questionId": 3851856,
+              "answerType": 1,
+              "orderNumber": 4,
+              "texts": {
+                "nl-NL": "Helemaal mee eens",
+                "en-US": "Strongly agree"
+              },
+              "itemType": 2,
+              "questionnaireItems": null
+            }
+          ]
+        },
+        {
+          "questionId": 3810105,
+          "subjectId": 2605521,
+          "answerCategoryType": 2,
+          "orderNumber": 2,
+          "texts": {
+            "nl-NL": "Als je deze organisatie één tip mag geven, wat zou dat dan zijn?",
+            "en-US": "If you could give this organisation one tip, what would it be?"
+          },
+          "itemType": 1,
+          //Changed this to null as I assume answerCategorytype 2 = open ended answer where. Then having anything in here is redundant
+          "questionnaireItems": null
+        }
+      ]
+    }
+  ]
+}

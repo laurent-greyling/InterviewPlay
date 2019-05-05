@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SurveyDeserialise", "SurveyDeserialise\SurveyDeserialise\SurveyDeserialise.csproj", "{499BF485-5365-489F-840A-4F6C2979BC6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveyDeserialiseTests", "SurveyDeserialise\SurveyDeserialiseTests\SurveyDeserialiseTests.csproj", "{4787599E-C473-48E5-8231-EDF3443EC05B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{499BF485-5365-489F-840A-4F6C2979BC6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{499BF485-5365-489F-840A-4F6C2979BC6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{499BF485-5365-489F-840A-4F6C2979BC6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{499BF485-5365-489F-840A-4F6C2979BC6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4787599E-C473-48E5-8231-EDF3443EC05B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4787599E-C473-48E5-8231-EDF3443EC05B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4787599E-C473-48E5-8231-EDF3443EC05B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4787599E-C473-48E5-8231-EDF3443EC05B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {53456869-BCB8-454E-9A9D-2836B3EED052}
+	EndGlobalSection
+EndGlobal
