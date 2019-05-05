@@ -15,6 +15,8 @@ namespace InterviewPlay.Models
         /// </summary>
         public SurveyTextModel Texts { get; set; }
 
+        public string SubjectText { get; set; }
+
         /// <summary>
         /// What is Itemtype?
         /// </summary>
