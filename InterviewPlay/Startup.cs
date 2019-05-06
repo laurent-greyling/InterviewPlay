@@ -51,6 +51,9 @@ namespace InterviewPlay
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "language",
+                    template: "Interview/InterviewDetails/{language?}");
             });
 
             app.UseSpa(spa =>

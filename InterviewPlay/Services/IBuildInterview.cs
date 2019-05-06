@@ -7,6 +7,6 @@ namespace InterviewPlay.Services
     /// </summary>
     public interface IBuildInterview
     {
-        SurveyModel Build();
+        SurveyModel Build(string language);
     }
 }

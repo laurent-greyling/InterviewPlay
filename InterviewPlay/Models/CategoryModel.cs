@@ -18,6 +18,8 @@
 
         public SurveyTextModel Texts { get; set; }
 
+        public string CategoryText { get; set; }
+
         public int ItemType { get; set; }
 
         /// <summary>

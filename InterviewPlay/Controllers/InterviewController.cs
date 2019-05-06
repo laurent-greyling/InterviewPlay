@@ -7,11 +7,11 @@ namespace InterviewPlay.Controllers
     [Route("api/[controller]")]
     public class InterviewController : Controller
     {
-        [HttpGet("[action]")]
-        public SurveyModel InterviewDetails()
+        [Route("[action]/{language}")]
+        public SurveyModel InterviewDetails(string language)
         {
             var interview = new BuildInterview();
-            return interview.Build();
+            return interview.Build(language);
         }
     }
 }

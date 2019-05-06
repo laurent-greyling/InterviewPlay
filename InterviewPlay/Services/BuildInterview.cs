@@ -18,22 +18,24 @@ namespace InterviewPlay.Services
             _survey = JsonConvert.DeserializeObject<SurveyModel>(SurveyJson);
         }
 
-        public SurveyModel Build()
+        public SurveyModel Build(string language)
         {
             _survey = JsonConvert.DeserializeObject<SurveyModel>(SurveyJson);
-            //var interview = new InterviewModel { InterviewId = _survey.QuestionnaireId };
 
             foreach (var subject in _survey.QuestionnaireItems)
             {
-                subject.SubjectText = subject.Texts.EnUs;
+                //For more langauges this will need to be smarter
+                subject.SubjectText = language == "nl" ? subject.Texts.NlNl : subject.Texts.EnUs;
 
                 foreach (var question in subject.QuestionnaireItems)
                 {
+                    question.QuestionItemText = language == "nl" ? question.Texts.NlNl : question.Texts.EnUs;
                     if (question.QuestionnaireItems == null)
                         continue;
 
                     foreach (var category in question.QuestionnaireItems)
                     {
+                        category.CategoryText = language == "nl" ? category.Texts.NlNl : category.Texts.EnUs;
                     }
                 }
             }

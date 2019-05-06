@@ -1,30 +1,19 @@
 <h1>Interview Details</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<!--<p *ngIf="!surveydetails"><em>Loading...</em></p>-->
 
-<p *ngIf="!surveydetails"><em>Loading...</em></p>
-
-<label class='lable' *ngIf="surveydetails">{{surveydetails.questionnaireId}}</label>
-
-<div class="interview" *ngFor="let surveydetail of surveydetails.questionnaireItems">
-  {{surveydetail.subjectText}}
-</div>
-
-<table class='table' *ngIf="surveydetails">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Temp. (C)</th>
-      <th>Temp. (F)</th>
-      <th>Summary</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let forecast of forecasts">
-      <td>{{ forecast.dateFormatted }}</td>
-      <td>{{ forecast.temperatureC }}</td>
-      <td>{{ forecast.temperatureF }}</td>
-      <td>{{ forecast.summary }}</td>
-    </tr>
-  </tbody>
-</table>
+<button type="Button" (click)="language('en')">English</button>
+<button type="Button" (click)="language('nl')">Dutch</button>
+<form (ngSubmit)="onsubmit()">
+  <div class="survey" *ngFor="let surveydetail of surveydetails.questionnaireItems">
+    {{surveydetail.subjectText}}
+    <div class="interview" *ngFor="let interviewdetail of surveydetail.questionnaireItems">
+      -{{interviewdetail.questionItemText}}
+      <textarea *ngIf="interviewdetail.answerCategoryType == 2"></textarea>
+      <select *ngIf="interviewdetail.answerCategoryType == 0">
+        <option class="category" *ngFor="let categorydetail of interviewdetail.questionnaireItems">{{categorydetail.categoryText}}</option>
+      </select>
+    </div>
+  </div>
+  <button type="submit" *ngIf="surveydetails">Submit</button>
+</form>

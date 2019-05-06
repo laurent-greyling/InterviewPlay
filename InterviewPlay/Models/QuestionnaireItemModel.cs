@@ -27,6 +27,8 @@ namespace InterviewPlay.Models
         /// </summary>
         public SurveyTextModel Texts { get; set; }
 
+        public string QuestionItemText { get; set; }
+
         public int ItemType { get; set; }
 
         /// <summary>
