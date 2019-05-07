@@ -6,14 +6,20 @@
 <button type="Button" (click)="language('nl')">Dutch</button>
 <form (ngSubmit)="onsubmit()">
   <div class="survey" *ngFor="let surveydetail of surveydetails.questionnaireItems">
-    {{surveydetail.subjectText}}
+    <div class="subject">{{surveydetail.subjectText}}</div>
     <div class="interview" *ngFor="let interviewdetail of surveydetail.questionnaireItems">
-      -{{interviewdetail.questionItemText}}
+      <div class="question">-{{interviewdetail.questionItemText}}</div>
       <textarea *ngIf="interviewdetail.answerCategoryType == 2"></textarea>
-      <select *ngIf="interviewdetail.answerCategoryType == 0">
-        <option class="category" *ngFor="let categorydetail of interviewdetail.questionnaireItems">{{categorydetail.categoryText}}</option>
-      </select>
+      <div>
+        <select name="selection" *ngIf="interviewdetail.answerCategoryType == 0" (change)="onSelect($event.target.value)" >
+          <option>--Select Answer--</option>
+          <option *ngFor="let categorydetail of interviewdetail.questionnaireItems" class="category"
+                  value="{'surveyId':{{surveydetails.questionnaireId}},'subjectId':{{surveydetail.subjectId}},'questionId':{{interviewdetail.questionId}},'categoryId': {{categorydetail.answerId}}}">
+            {{categorydetail.categoryText}}
+          </option>
+        </select>
+      </div>
     </div>
   </div>
-  <button type="submit" *ngIf="surveydetails">Submit</button>
+  <input type="submit" *ngIf="surveydetails">
 </form>
