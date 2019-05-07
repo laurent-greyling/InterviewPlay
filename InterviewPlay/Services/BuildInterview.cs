@@ -10,18 +10,25 @@ namespace InterviewPlay.Services
         /// <summary>
         /// This would not sit in file structure like this usually, this will come from DB or blob or some place more secure
         /// </summary>
-        private readonly string SurveyJson = File.ReadAllText("questionnaire.json");
+        //private readonly string SurveyJson = File.ReadAllText("questionnaire.json");
         private SurveyModel _survey;
 
-        public BuildInterview()
+        /// <summary>
+        /// Initialise the BuildInterview
+        /// </summary>
+        /// <param name="surveyJson">This can be used to send different Json file as questionnaire. Only here now of using the demo Json for project</param>
+        public BuildInterview(string surveyJson = "")
         {
-            _survey = JsonConvert.DeserializeObject<SurveyModel>(SurveyJson);
+            //This is for the purpose of this project, I use the surveyJson to pass in the json from tests
+            if (string.IsNullOrEmpty(surveyJson))
+            {
+                surveyJson = File.ReadAllText("questionnaire.json");
+            }
+            _survey = JsonConvert.DeserializeObject<SurveyModel>(surveyJson);
         }
 
         public SurveyModel Build(string language)
         {
-            _survey = JsonConvert.DeserializeObject<SurveyModel>(SurveyJson);
-
             foreach (var subject in _survey.QuestionnaireItems)
             {
                 //For more langauges this will need to be smarter
