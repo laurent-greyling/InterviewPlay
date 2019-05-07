@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Tests
 {
-    public class Tests
+    public class InterviewBuildTests
     {
         private Mock<IBuildInterview> _mockInterviewBuilder;
         private BuildInterview _target;
