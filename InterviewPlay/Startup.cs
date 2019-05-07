@@ -54,6 +54,9 @@ namespace InterviewPlay
                 routes.MapRoute(
                     name: "language",
                     template: "Interview/InterviewDetails/{language?}");
+                routes.MapRoute(
+                   name: "response",
+                   template: "api/RespondentData/PostResponse");
             });
 
             app.UseSpa(spa =>

@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 export class InterviewDetailsComponent {
   public surveydetails: SurveyDetails[];
   public baseUri = '' as string;
-  public closedAnswer: ClosedAnswers[] = [];
+  public respondentAnswers: RespondentAnswer[] = [];
 
   constructor(public http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUri = baseUrl;
@@ -23,13 +23,25 @@ export class InterviewDetailsComponent {
   }
 
   onSelect(selectedAnswerJson: string, ) {
-    let answer: ClosedAnswers = JSON.parse(selectedAnswerJson.replace(/'/g, '"'));
-    this.closedAnswer.push(answer);
+    let answer: RespondentAnswer = JSON.parse(selectedAnswerJson.replace(/'/g, '"'));
+    this.respondentAnswers.push(answer);
+  }
+
+  openAnswerGiven(questionnaireId: number, subjectId: number, questionId: number, answer: string)
+  {
+    let respondentOpenAnswer = {} as RespondentAnswer;
+    respondentOpenAnswer.surveyId = questionnaireId;
+    respondentOpenAnswer.subjectId = subjectId;
+    respondentOpenAnswer.questionId = questionId;
+    respondentOpenAnswer.openAnswer = answer;
+    this.respondentAnswers.push(respondentOpenAnswer);
   }
 
   onsubmit() {
-    let x = this.closedAnswer;
-    var d = x;
+    let answers = this.respondentAnswers;
+    let url = this.baseUri + 'api/RespondentData/PostResponse';
+
+    this.http.post(url, answers).subscribe(result => { }, error => { })
   }
 }
 
@@ -56,10 +68,11 @@ interface Category {
   categoryText: string;
 }
 
-interface ClosedAnswers {
+interface RespondentAnswer {
   surveyId: number;
   subjectId: number;
   questionId: number;
   categoryId: number;
+  openAnswer: string;
 }
 
