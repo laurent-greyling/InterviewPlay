@@ -15,8 +15,9 @@ namespace InterviewPlay.Services
             _context = new SurveyDbContext();
         }
 
-        public void CreateTableIfNotExist(int surveyId)
+        public async Task CreateTableIfNotExistAsync(int surveyId)
         {
+            //Currently this string is not safe. need it paramaterized to protect against sql injection
             var createIfNotExist = $@"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
            WHERE TABLE_NAME = N'RespondentAnswer_{surveyId}')
 BEGIN
@@ -30,11 +31,12 @@ BEGIN
 CREATE INDEX idx_category_question
 ON RespondentAnswer_{surveyId} (CategoryId, QuestionId);
 END";
-            _context.Database.ExecuteSqlCommand(createIfNotExist);
+            await _context.Database.ExecuteSqlCommandAsync(createIfNotExist);
         }
 
-        public void InsertAnswers(RespondentAnswerModel answers, string respondentId)
+        public async Task InsertAnswersAsync(RespondentAnswerModel answers, string respondentId)
         {
+            //Currently this string is not safe. need it paramaterized to protect against sql injection
             var insertAsnswers = $@"INSERT INTO RespondentAnswer_{answers.SurveyId} (
 RespondentId,
 SubjectId,
@@ -47,7 +49,7 @@ OpenAnswer) VALUES (
 {answers.CategoryId},
 '{answers.OpenAnswer}')";
 
-            _context.Database.ExecuteSqlCommand(insertAsnswers);
+           await _context.Database.ExecuteSqlCommandAsync(insertAsnswers);
         }
     }
 }

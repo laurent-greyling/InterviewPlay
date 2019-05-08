@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using InterviewPlay.Models;
 using InterviewPlay.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ namespace InterviewPlay.Controllers
         }
 
         [HttpPost("PostResponse", Name = "response")]
-        public IActionResult PostResponse([FromBody] List<RespondentAnswerModel> respondentDataSet)
+        public async Task<IActionResult> PostResponse([FromBody] List<RespondentAnswerModel> respondentDataSet)
         {
             try
             {
@@ -29,8 +30,8 @@ namespace InterviewPlay.Controllers
                 var respondentId = Guid.NewGuid().ToString();
                 foreach (var respondentData in respondentDataSet)
                 {
-                    _client.CreateTableIfNotExist(respondentData.SurveyId);
-                    _client.InsertAnswers(respondentData, respondentId);
+                    await _client.CreateTableIfNotExistAsync(respondentData.SurveyId);
+                    await _client.InsertAnswersAsync(respondentData, respondentId);
                 }
 
                 return this.Ok();
