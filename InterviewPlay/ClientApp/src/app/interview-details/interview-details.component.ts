@@ -10,6 +10,7 @@ export class InterviewDetailsComponent {
   public surveydetails: SurveyDetails[];
   public baseUri = '' as string;
   public respondentAnswers: RespondentAnswer[] = [];
+  public isFinished: boolean;
 
   constructor(public http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUri = baseUrl;
@@ -41,7 +42,9 @@ export class InterviewDetailsComponent {
     let answers = this.respondentAnswers;
     let url = this.baseUri + 'api/RespondentData/PostResponse';
 
-    this.http.post(url, answers).subscribe(result => { }, error => { })
+    this.http.post(url, answers).subscribe(result => {
+      this.isFinished = true;
+    }, error => { })
   }
 }
 

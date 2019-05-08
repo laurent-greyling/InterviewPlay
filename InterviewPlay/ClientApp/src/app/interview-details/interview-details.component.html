@@ -2,9 +2,10 @@
 
 <!--<p *ngIf="!surveydetails"><em>Loading...</em></p>-->
 
-<button type="Button" (click)="language('en')">English</button>
-<button type="Button" (click)="language('nl')">Dutch</button>
-<form (ngSubmit)="onsubmit()">
+
+<button type="Button" (click)="language('en')" *ngIf="!isFinished">English</button>
+<button type="Button" (click)="language('nl')" *ngIf="!isFinished">Dutch</button>
+<form (ngSubmit)="onsubmit()" *ngIf="!isFinished">
   <div class="survey" *ngFor="let surveydetail of surveydetails.questionnaireItems">
     <div class="subject">{{surveydetail.subjectText}}</div>
     <div class="interview" *ngFor="let interviewdetail of surveydetail.questionnaireItems">
@@ -23,3 +24,5 @@
   </div>
   <input type="submit" *ngIf="surveydetails">
 </form>
+
+<label *ngIf="isFinished">You submitted your survey</label>
