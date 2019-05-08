@@ -11,6 +11,7 @@ namespace InterviewPlay.Services
         /// </summary>
         //private readonly string SurveyJson = File.ReadAllText("questionnaire.json");
         private SurveyModel _survey;
+        private ISqlClient _client;
 
         /// <summary>
         /// Initialise the BuildInterview
@@ -24,10 +25,14 @@ namespace InterviewPlay.Services
                 surveyJson = File.ReadAllText("questionnaire.json");
             }
             _survey = JsonConvert.DeserializeObject<SurveyModel>(surveyJson);
+            _client = new SqlClient();
         }
 
         public SurveyModel Build(string language, string respondentId)
-        {            
+        {
+            _client.CreateRespondentTableIfNotExist(_survey.QuestionnaireId);
+            _client.InsertRespodentDetails(_survey.QuestionnaireId, respondentId);
+
             foreach (var subject in _survey.QuestionnaireItems)
             {
                 //For more langauges this will need to be smarter

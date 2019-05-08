@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using InterviewPlay.Models;
 using InterviewPlay.Services;
@@ -27,12 +28,16 @@ namespace InterviewPlay.Controllers
                     throw new Exception("Respondent Data contain no elements");
                 }
 
+                var respondentId = respondentDataSet.Select(x => x.RespondentId).ToList().First();
+                var surveyId = respondentDataSet.Select(x => x.SurveyId).ToList().First();
+                await _client.CreateSurveyTableIfNotExistAsync(surveyId);
+
                 foreach (var respondentData in respondentDataSet)
                 {
-                    await _client.CreateTableIfNotExistAsync(respondentData.SurveyId);
                     await _client.InsertAnswersAsync(respondentData);
                 }
 
+                _client.UpdateRespodentDetails(surveyId, respondentId);
                 return this.Ok();
             }
             catch (NullReferenceException)

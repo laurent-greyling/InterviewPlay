@@ -53,7 +53,7 @@ namespace InterviewPlay
                     template: "{controller}/{action=Index}/{id?}");
                 routes.MapRoute(
                     name: "language",
-                    template: "Interview/InterviewDetails/{language?}");
+                    template: "Interview/InterviewDetails/{language?}/{respondentId?}");
                 routes.MapRoute(
                    name: "response",
                    template: "api/RespondentData/PostResponse");

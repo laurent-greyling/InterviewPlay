@@ -15,7 +15,20 @@ namespace InterviewPlay.Services
             _context = new SurveyDbContext();
         }
 
-        public async Task CreateTableIfNotExistAsync(int surveyId)
+        public void CreateRespondentTableIfNotExist(int surveyId)
+        {
+            var createIfNotExist = $@"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
+           WHERE TABLE_NAME = N'RespondentFinished_{surveyId}')
+BEGIN
+  CREATE TABLE RespondentFinished_{surveyId} (
+    RespondentId varchar(255) NOT NULL PRIMARY KEY,
+    IsFinished BIT DEFAULT 0,
+);
+END";
+            _context.Database.ExecuteSqlCommandAsync(createIfNotExist);
+        }
+
+        public async Task CreateSurveyTableIfNotExistAsync(int surveyId)
         {
             //Currently this string is not safe. need it paramaterized to protect against sql injection
             var createIfNotExist = $@"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
@@ -50,6 +63,20 @@ OpenAnswer) VALUES (
 '{answers.OpenAnswer}')";
 
            await _context.Database.ExecuteSqlCommandAsync(insertAsnswers);
+        }
+
+        public void InsertRespodentDetails(int surveyId, string respondentId)
+        {
+            var insertAsnswers = $@"INSERT INTO RespondentFinished_{surveyId} (RespondentId) VALUES ('{respondentId}')";
+
+            _context.Database.ExecuteSqlCommandAsync(insertAsnswers);
+        }
+
+        public void UpdateRespodentDetails(int surveyId, string respondentId)
+        {
+            var insertAsnswers = $@"UPDATE RespondentFinished_{surveyId} SET IsFinished = 1 WHERE RespondentId='{respondentId}'";
+
+            _context.Database.ExecuteSqlCommandAsync(insertAsnswers);
         }
     }
 }

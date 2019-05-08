@@ -9,7 +9,13 @@ namespace InterviewPlay.Services
         /// Create the survey table if it does not exist yet
         /// </summary>
         /// <param name="surveyId"></param>
-        Task CreateTableIfNotExistAsync(int surveyId);
+        Task CreateSurveyTableIfNotExistAsync(int surveyId);
+
+        /// <summary>
+        /// Create table for holding respondents who submitted their questionnaires
+        /// </summary>
+        /// <param name="surveyId"></param>
+        void CreateRespondentTableIfNotExist(int surveyId);
 
         /// <summary>
         /// Insert Answers into DB
@@ -17,5 +23,19 @@ namespace InterviewPlay.Services
         /// <param name="answers"></param>
         /// <param name="respondentId"></param>
         Task InsertAnswersAsync(RespondentAnswerModel answers);
+
+        /// <summary>
+        /// Insert respondent final state details
+        /// </summary>
+        /// <param name="answers"></param>
+        /// <param name="respondentId"></param>
+        void InsertRespodentDetails(int surveyId, string respondentId);
+
+        /// <summary>
+        /// update respondent final state details
+        /// </summary>
+        /// <param name="answers"></param>
+        /// <param name="respondentId"></param>
+        void UpdateRespodentDetails(int surveyId, string respondentId);
     }
 }
