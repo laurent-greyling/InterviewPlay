@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace InterviewPlay.Services
 {
-    interface ISqlClient
+    public interface ISqlClient
     {
         /// <summary>
         /// Create the survey table if it does not exist yet

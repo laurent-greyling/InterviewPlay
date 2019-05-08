@@ -11,6 +11,7 @@ export class InterviewDetailsComponent {
   public baseUri = '' as string;
   public respondentAnswers: RespondentAnswer[] = [];
   public isFinished: boolean;
+  public noAnswers: boolean;
 
   constructor(public http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUri = baseUrl;
@@ -26,6 +27,7 @@ export class InterviewDetailsComponent {
   onSelect(selectedAnswerJson: string, ) {
     let answer: RespondentAnswer = JSON.parse(selectedAnswerJson.replace(/'/g, '"'));
     this.respondentAnswers.push(answer);
+    this.noAnswers = false;
   }
 
   openAnswerGiven(questionnaireId: number, subjectId: number, questionId: number, answer: string)
@@ -42,9 +44,14 @@ export class InterviewDetailsComponent {
     let answers = this.respondentAnswers;
     let url = this.baseUri + 'api/RespondentData/PostResponse';
 
-    this.http.post(url, answers).subscribe(result => {
-      this.isFinished = true;
-    }, error => { })
+    if (answers.length > 0) {
+      this.http.post(url, answers).subscribe(result => {
+        this.isFinished = true;
+        this.noAnswers = false;
+      }, error => { })
+    } else {
+      this.noAnswers = true;
+    }
   }
 }
 

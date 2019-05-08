@@ -2,7 +2,7 @@
 
 <!--<p *ngIf="!surveydetails"><em>Loading...</em></p>-->
 
-
+<div><label *ngIf="noAnswers">No answers given</label></div>
 <button type="Button" (click)="language('en')" *ngIf="!isFinished">English</button>
 <button type="Button" (click)="language('nl')" *ngIf="!isFinished">Dutch</button>
 <form (ngSubmit)="onsubmit()" *ngIf="!isFinished">
@@ -10,15 +10,16 @@
     <div class="subject">{{surveydetail.subjectText}}</div>
     <div class="interview" *ngFor="let interviewdetail of surveydetail.questionnaireItems">
       <div class="question">-{{interviewdetail.questionItemText}}</div>
-      <input type="text" *ngIf="interviewdetail.answerCategoryType == 2"
+      <input type="text"
+             *ngIf="interviewdetail.answerCategoryType == 2"
              (change)="openAnswerGiven(surveydetails.questionnaireId, surveydetail.subjectId, interviewdetail.questionId, $event.target.value)" value="{{openanswer}}">
       <div *ngFor="let categorydetail of interviewdetail.questionnaireItems">
-        <fieldset *ngIf="interviewdetail.answerCategoryType == 0"
-                  (change)="onSelect($event.target.value)">
-          <input type="radio" name="{{interviewdetail.questionId}}"
+          <input *ngIf="interviewdetail.answerCategoryType == 0"
+                 (change)="onSelect($event.target.value)"
+                 type="radio"
+                 name="{{interviewdetail.questionId}}"
                  value="{'surveyId':{{surveydetails.questionnaireId}},'subjectId':{{surveydetail.subjectId}},'questionId':{{interviewdetail.questionId}},'categoryId': {{categorydetail.answerId}}}"/>
-          {{categorydetail.categoryText}}
-        </fieldset>        
+          {{categorydetail.categoryText}}      
       </div>
     </div>
   </div>
