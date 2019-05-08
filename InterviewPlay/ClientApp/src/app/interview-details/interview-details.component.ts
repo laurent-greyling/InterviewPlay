@@ -40,7 +40,7 @@ export class InterviewDetailsComponent {
 
   //Set page based on language selected
   language(lan: string){
-    this.http.get<SurveyDetails[]>(this.baseUri + 'api/Interview/InterviewDetails/' + lan).subscribe(result => {
+    this.http.get<SurveyDetails[]>(this.baseUri + 'api/Interview/InterviewDetails/' + lan + '/' + this.respondentId).subscribe(result => {
       this.surveydetails = result;
     }, error => console.error(error));
   }

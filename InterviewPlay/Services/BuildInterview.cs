@@ -1,6 +1,5 @@
 ﻿using InterviewPlay.Models;
 using Newtonsoft.Json;
-using System;
 using System.IO;
 
 namespace InterviewPlay.Services
@@ -27,8 +26,8 @@ namespace InterviewPlay.Services
             _survey = JsonConvert.DeserializeObject<SurveyModel>(surveyJson);
         }
 
-        public SurveyModel Build(string language)
-        {
+        public SurveyModel Build(string language, string respondentId)
+        {            
             foreach (var subject in _survey.QuestionnaireItems)
             {
                 //For more langauges this will need to be smarter

@@ -10,6 +10,6 @@ namespace InterviewPlay.Services
         /// </summary>
         /// <param name="language">Language you want to conduct survey in</param>
         /// <returns></returns>
-        SurveyModel Build(string language);
+        SurveyModel Build(string language, string respondentId);
     }
 }
