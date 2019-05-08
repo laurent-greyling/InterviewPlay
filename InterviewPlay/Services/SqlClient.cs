@@ -34,7 +34,7 @@ END";
             await _context.Database.ExecuteSqlCommandAsync(createIfNotExist);
         }
 
-        public async Task InsertAnswersAsync(RespondentAnswerModel answers, string respondentId)
+        public async Task InsertAnswersAsync(RespondentAnswerModel answers)
         {
             //Currently this string is not safe. need it paramaterized to protect against sql injection
             var insertAsnswers = $@"INSERT INTO RespondentAnswer_{answers.SurveyId} (
@@ -43,7 +43,7 @@ SubjectId,
 QuestionId,
 CategoryId,
 OpenAnswer) VALUES (
-'{respondentId}',
+'{answers.RespondentId}',
 {answers.SubjectId},
 {answers.QuestionId},
 {answers.CategoryId},

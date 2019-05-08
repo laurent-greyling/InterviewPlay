@@ -57,6 +57,9 @@ namespace InterviewPlay
                 routes.MapRoute(
                    name: "response",
                    template: "api/RespondentData/PostResponse");
+                routes.MapRoute(
+                   name: "respondentid",
+                   template: "api/RespondentId/GenerateId");
             });
 
             app.UseSpa(spa =>

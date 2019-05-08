@@ -2,10 +2,17 @@
 
 <!--<p *ngIf="!surveydetails"><em>Loading...</em></p>-->
 
+
+<input type="button" value="Start" (click)="start()" *ngIf="!isFinished && !interviewStarted" />
+
+<input type="button" value="Continue" (click)="continue()" *ngIf="!isFinished && !interviewStarted"/>
+<input type="text" (change)="respondentIdGiven($event.target.value)" value="{{respondentId}}" *ngIf="!isFinished && !interviewStarted"/>
+
+<label *ngIf="!isFinished && interviewStarted">Your respondent id is: {{respondentId}}. Remember this id as it will allow you to continue on the survey if not completed.</label>
 <div><label *ngIf="noAnswers">No answers given</label></div>
-<button type="Button" (click)="language('en')" *ngIf="!isFinished">English</button>
-<button type="Button" (click)="language('nl')" *ngIf="!isFinished">Dutch</button>
-<form (ngSubmit)="onsubmit()" *ngIf="!isFinished">
+<button type="Button" (click)="language('en')" *ngIf="!isFinished && interviewStarted">English</button>
+<button type="Button" (click)="language('nl')" *ngIf="!isFinished && interviewStarted">Dutch</button>
+<form (ngSubmit)="onsubmit()" *ngIf="!isFinished && interviewStarted">
   <div class="survey" *ngFor="let surveydetail of surveydetails.questionnaireItems">
     <div class="subject">{{surveydetail.subjectText}}</div>
     <div class="interview" *ngFor="let interviewdetail of surveydetail.questionnaireItems">

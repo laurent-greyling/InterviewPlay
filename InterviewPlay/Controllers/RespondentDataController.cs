@@ -27,11 +27,10 @@ namespace InterviewPlay.Controllers
                     throw new Exception("Respondent Data contain no elements");
                 }
 
-                var respondentId = Guid.NewGuid().ToString();
                 foreach (var respondentData in respondentDataSet)
                 {
                     await _client.CreateTableIfNotExistAsync(respondentData.SurveyId);
-                    await _client.InsertAnswersAsync(respondentData, respondentId);
+                    await _client.InsertAnswersAsync(respondentData);
                 }
 
                 return this.Ok();

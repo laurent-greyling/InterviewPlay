@@ -2,6 +2,7 @@
 {
     public class RespondentAnswerModel
     {
+        public string RespondentId { get; set; }
         public int SurveyId { get; set; }
         public int SubjectId { get; set; }
         public int QuestionId { get; set; }

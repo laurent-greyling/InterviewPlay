@@ -16,6 +16,6 @@ namespace InterviewPlay.Services
         /// </summary>
         /// <param name="answers"></param>
         /// <param name="respondentId"></param>
-        Task InsertAnswersAsync(RespondentAnswerModel answers, string respondentId);
+        Task InsertAnswersAsync(RespondentAnswerModel answers);
     }
 }
