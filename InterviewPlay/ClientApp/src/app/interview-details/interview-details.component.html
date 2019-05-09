@@ -1,31 +1,34 @@
-<div>
-  <h1>Interview Details</h1>
+<div class="card">
+  <div class="container">
+    <h1 class="maintext">Interview Details</h1>
 
-  <!--<p *ngIf="!surveydetails"><em>Loading...</em></p>-->
+    <!--<p *ngIf="!surveydetails"><em>Loading...</em></p>-->
 
-  <div>
-    <input type="button" value="Start" (click)="start()" *ngIf="!isFinished && !interviewStarted" class="btn btn-info btn-block my-4"/>
-    <input type="button" value="Continue" (click)="continue()" *ngIf="!isFinished && !interviewStarted" class="btn btn-info btn-block my-4"/>
-    <input type="text" placeholder="Respondent Id" (change)="respondentIdGiven($event.target.value)" value="{{respondentId}}" *ngIf="!isFinished && !interviewStarted" class="form-control form-control-lg" />
-  </div>
-  <div>
-    <label *ngIf="!isFinished && interviewStarted">Your respondent id is: {{respondentId}}. Remember this id as it will allow you to continue on the survey if not completed.</label>
-  </div>
-  <div>
-    <button type="Button" (click)="language('en')" *ngIf="!isFinished && interviewStarted">English</button>
-    <button type="Button" (click)="language('nl')" *ngIf="!isFinished && interviewStarted">Dutch</button>
-  </div>
+    <div>
+      <input type="button" value="Start" (click)="start()" *ngIf="!isFinished && !interviewStarted" class="btn btn-info btn-block my-4 buttontext" />
+      <input type="button" value="Continue" (click)="continue()" *ngIf="!isFinished && !interviewStarted" class="btn btn-info btn-block my-4 buttontext" />
+      <input type="text"
+             placeholder="Respondent Id" (change)="respondentIdGiven($event.target.value)" value="{{respondentId}}"
+             *ngIf="!isFinished && !interviewStarted" class="form-control form-control-lg maintext" />
+    </div>
+    <div>
+      <label *ngIf="!isFinished && interviewStarted" class="maintext">Your respondent id is: {{respondentId}}. Remember this id as it will allow you to continue on the survey if not completed.</label>
+    </div>
+    <div>
+      <button type="Button" (click)="language('en')" *ngIf="!isFinished && interviewStarted" class="languagebutton">English</button>
+      <button type="Button" (click)="language('nl')" *ngIf="!isFinished && interviewStarted" class="languagebutton">Dutch</button>
+    </div>
 
     <form (ngSubmit)="onsubmit()" *ngIf="!isFinished && interviewStarted">
       <div class="survey" *ngFor="let surveydetail of surveydetails.questionnaireItems">
-        <div class="subject">{{surveydetail.subjectText}}</div>
+        <h2 class="subject maintext">{{surveydetail.subjectText}}</h2>
         <div class="interview" *ngFor="let interviewdetail of surveydetail.questionnaireItems">
-          <div class="question">-{{interviewdetail.questionItemText}}</div>
+          <h3 class="question maintext">{{interviewdetail.questionItemText}}</h3>
           <input class="form-control form-control-lg"
                  type="text"
                  *ngIf="interviewdetail.answerCategoryType == 2"
                  (change)="openAnswerGiven(surveydetails.questionnaireId, surveydetail.subjectId, interviewdetail.questionId, $event.target.value)" value="{{openanswer}}">
-          <div *ngFor="let categorydetail of interviewdetail.questionnaireItems">
+          <div *ngFor="let categorydetail of interviewdetail.questionnaireItems" class="maintext">
             <input *ngIf="interviewdetail.answerCategoryType == 0"
                    (change)="onSelect($event.target.value)"
                    type="radio"
@@ -36,10 +39,11 @@
         </div>
       </div>
       <div>
-        <label *ngIf="noAnswers" class="alert alert-danger">You have not answered any questions. Please review your answers</label>
+        <label *ngIf="noAnswers" class="alert alert-danger maintext">You have not answered any questions. Please review your answers</label>
       </div>
-      <input type="submit" *ngIf="surveydetails" class="btn btn-info btn-block my-4">
+      <input type="submit" *ngIf="surveydetails" class="btn btn-info btn-block my-4 buttontext">
     </form>
 
-  <label *ngIf="isFinished" class="alert alert-success">You submitted your survey</label>
+    <label *ngIf="isFinished" class="alert alert-success maintext">You submitted your survey</label>
+  </div>
 </div>
