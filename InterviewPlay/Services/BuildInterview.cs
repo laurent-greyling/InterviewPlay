@@ -53,5 +53,10 @@ namespace InterviewPlay.Services
 
             return _survey;
         }
+
+        public bool RespondentSurveyState(string respondentId)
+        {
+            return _client.RespondentCompleted(_survey.QuestionnaireId, respondentId);
+        }
     }
 }

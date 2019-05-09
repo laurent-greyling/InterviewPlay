@@ -11,5 +11,12 @@ namespace InterviewPlay.Services
         /// <param name="language">Language you want to conduct survey in</param>
         /// <returns></returns>
         SurveyModel Build(string language, string respondentId);
+
+        /// <summary>
+        /// Determine if respondent is allowed to continue or if responent is already finished
+        /// </summary>
+        /// <param name="respondentId"></param>
+        /// <returns></returns>
+        bool RespondentSurveyState(string respondentId);
     }
 }

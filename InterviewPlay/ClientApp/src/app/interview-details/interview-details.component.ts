@@ -32,7 +32,6 @@ export class InterviewDetailsComponent {
 
   continue() {
     var pattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-
     if (this.respondentId !== '' && pattern.test(this.respondentId) === true) {
       this.interviewStarted = true;
     }    
@@ -41,7 +40,11 @@ export class InterviewDetailsComponent {
   //Set page based on language selected
   language(lan: string){
     this.http.get<SurveyDetails[]>(this.baseUri + 'api/Interview/InterviewDetails/' + lan + '/' + this.respondentId).subscribe(result => {
-      this.surveydetails = result;
+      if (result === null) {
+        this.isFinished = true;
+      } else {
+        this.surveydetails = result;
+      }      
     }, error => console.error(error));
   }
 

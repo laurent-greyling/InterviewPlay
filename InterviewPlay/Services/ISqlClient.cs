@@ -37,5 +37,12 @@ namespace InterviewPlay.Services
         /// <param name="answers"></param>
         /// <param name="respondentId"></param>
         void UpdateRespodentDetails(int surveyId, string respondentId);
+
+        /// <summary>
+        /// Return the respondent interview state
+        /// </summary>
+        /// <param name="respondentId"></param>
+        /// <returns></returns>
+        bool RespondentCompleted(int surveyId, string respondentId);
     }
 }

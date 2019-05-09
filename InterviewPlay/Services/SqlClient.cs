@@ -72,6 +72,13 @@ OpenAnswer) VALUES (
             _context.Database.ExecuteSqlCommandAsync(insertAsnswers);
         }
 
+        public bool RespondentCompleted(int surveyId, string respondentId)
+        {
+            var respondentstate = $"SELECT * FROM RespondentFinished_{surveyId} WHERE RespondentId = '{respondentId}'";
+            var respondent = _context.RespondentFinalState.FromSql(respondentstate).ToList();
+            return respondent.Count > 0 ? respondent.First().IsFinished : false;
+        }
+
         public void UpdateRespodentDetails(int surveyId, string respondentId)
         {
             var insertAsnswers = $@"UPDATE RespondentFinished_{surveyId} SET IsFinished = 1 WHERE RespondentId='{respondentId}'";

@@ -17,6 +17,10 @@ namespace InterviewPlay.Controllers
         [Route("[action]/{language}/{respondentId}")]
         public SurveyModel InterviewDetails(string language, string respondentId)
         {
+            if (_interviewBuilder.RespondentSurveyState(respondentId))
+            {
+                return null;
+            }
             return _interviewBuilder.Build(language, respondentId);
         }
     }
