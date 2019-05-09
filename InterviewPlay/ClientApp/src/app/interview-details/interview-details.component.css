@@ -32,3 +32,43 @@
   color: darkgrey;
   display: inline-block;
 }
+
+.questions input[type="radio"] {
+  display: none;
+}
+
+.questions label:before {
+  content: attr(data-question-number);
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid;
+  text-align: center;
+  line-height: 10px;
+  margin-right: 5px;
+}
+
+.questions input[type="radio"]:checked ~ label {
+  background-color: #31b0d5;
+  border-color: #31b0d5;
+  color: white;
+}
+
+  .questions input[type="radio"]:checked ~ label:before {
+    background-color: #31b0d5;
+    border-color: #31b0d5;
+    color: #31b0d5;
+  }
+
+.questions label {
+  display: block;
+  cursor: pointer;
+  padding: 5px;  
+  background-color: white;
+  border: 1px solid white;
+}
+
+.questions {
+  padding: 5px;
+}
