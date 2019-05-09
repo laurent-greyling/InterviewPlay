@@ -1,29 +1,57 @@
-<h1>Interview Details</h1>
+<div class="card">
+  <div class="container">
+    <h1 class="maintext">Interview Details</h1>
 
-<!--<p *ngIf="!surveydetails"><em>Loading...</em></p>-->
+    <!--<p *ngIf="!surveydetails"><em>Loading...</em></p>-->
 
-<div><label *ngIf="noAnswers">No answers given</label></div>
-<button type="Button" (click)="language('en')" *ngIf="!isFinished">English</button>
-<button type="Button" (click)="language('nl')" *ngIf="!isFinished">Dutch</button>
-<form (ngSubmit)="onsubmit()" *ngIf="!isFinished">
-  <div class="survey" *ngFor="let surveydetail of surveydetails.questionnaireItems">
-    <div class="subject">{{surveydetail.subjectText}}</div>
-    <div class="interview" *ngFor="let interviewdetail of surveydetail.questionnaireItems">
-      <div class="question">-{{interviewdetail.questionItemText}}</div>
+    <div>
+      <input type="button" value="Start" (click)="start()" *ngIf="!isFinished && !interviewStarted" class="btn btn-info btn-block my-4 buttontext" />
+      <input type="button" value="Continue" (click)="continue()" *ngIf="!isFinished && !interviewStarted" class="btn btn-info btn-block my-4 buttontext" />
       <input type="text"
-             *ngIf="interviewdetail.answerCategoryType == 2"
-             (change)="openAnswerGiven(surveydetails.questionnaireId, surveydetail.subjectId, interviewdetail.questionId, $event.target.value)" value="{{openanswer}}">
-      <div *ngFor="let categorydetail of interviewdetail.questionnaireItems">
-          <input *ngIf="interviewdetail.answerCategoryType == 0"
-                 (change)="onSelect($event.target.value)"
-                 type="radio"
-                 name="{{interviewdetail.questionId}}"
-                 value="{'surveyId':{{surveydetails.questionnaireId}},'subjectId':{{surveydetail.subjectId}},'questionId':{{interviewdetail.questionId}},'categoryId': {{categorydetail.answerId}}}"/>
-          {{categorydetail.categoryText}}      
-      </div>
+             placeholder="Respondent Id" (change)="respondentIdGiven($event.target.value)" value="{{respondentId}}"
+             *ngIf="!isFinished && !interviewStarted" class="form-control form-control-lg maintext" />
     </div>
-  </div>
-  <input type="submit" *ngIf="surveydetails">
-</form>
+    <div>
+      <label *ngIf="!isFinished && interviewStarted" class="maintext">Your respondent id is: {{respondentId}}. Remember this id as it will allow you to continue on the survey if not completed.</label>
+    </div>
+    <div>
+      <button type="Button" (click)="language('en')" *ngIf="!isFinished && interviewStarted" class="languagebutton">English</button>
+      <button type="Button" (click)="language('nl')" *ngIf="!isFinished && interviewStarted" class="languagebutton">Dutch</button>
+    </div>
 
-<label *ngIf="isFinished">You submitted your survey</label>
+    <form (ngSubmit)="onsubmit()" *ngIf="!isFinished && interviewStarted">
+      <div class="survey" *ngFor="let surveydetail of surveydetails.questionnaireItems">
+        <h2 class="subject maintext">{{surveydetail.subjectText}}</h2>
+        <div class="interview" *ngFor="let interviewdetail of surveydetail.questionnaireItems">
+          <h3 class="question maintext">{{interviewdetail.questionItemText}}</h3>
+
+          <input class="form-control form-control-lg"
+                 type="text"
+                 *ngIf="interviewdetail.answerCategoryType == 2"
+                 (change)="openAnswerGiven(surveydetails.questionnaireId, surveydetail.subjectId, interviewdetail.questionId, $event.target.value)" value="{{openanswer}}">
+
+
+          <div *ngFor="let categorydetail of interviewdetail.questionnaireItems" class="maintext questions">
+            <div class="questions__question">
+              <input *ngIf="interviewdetail.answerCategoryType == 0"
+                     (change)="onSelect($event.target.value)"
+                     type="radio"
+                     id="{{interviewdetail.questionId}}-{{categorydetail.answerId}}"
+                     name="{{interviewdetail.questionId}}"
+                     value="{'surveyId':{{surveydetails.questionnaireId}},'subjectId':{{surveydetail.subjectId}},'questionId':{{interviewdetail.questionId}},'categoryId': {{categorydetail.answerId}}}" />
+              <label for="{{interviewdetail.questionId}}-{{categorydetail.answerId}}">{{categorydetail.categoryText}}</label>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+      <div>
+        <label *ngIf="noAnswers" class="alert alert-danger maintext">You have not answered any questions. Please review your answers</label>
+      </div>
+      <input type="submit" *ngIf="surveydetails" class="btn btn-info btn-block my-4 buttontext">
+    </form>
+
+    <label *ngIf="isFinished" class="alert alert-success maintext">You submitted your survey</label>
+  </div>
+</div>

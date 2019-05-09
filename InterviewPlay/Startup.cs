@@ -53,10 +53,13 @@ namespace InterviewPlay
                     template: "{controller}/{action=Index}/{id?}");
                 routes.MapRoute(
                     name: "language",
-                    template: "Interview/InterviewDetails/{language?}");
+                    template: "Interview/InterviewDetails/{language?}/{respondentId?}");
                 routes.MapRoute(
                    name: "response",
                    template: "api/RespondentData/PostResponse");
+                routes.MapRoute(
+                   name: "respondentid",
+                   template: "api/RespondentId/GenerateId");
             });
 
             app.UseSpa(spa =>

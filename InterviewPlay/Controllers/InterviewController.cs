@@ -14,10 +14,14 @@ namespace InterviewPlay.Controllers
             _interviewBuilder = new BuildInterview();
         }
 
-        [Route("[action]/{language}")]
-        public SurveyModel InterviewDetails(string language)
+        [Route("[action]/{language}/{respondentId}")]
+        public SurveyModel InterviewDetails(string language, string respondentId)
         {
-            return _interviewBuilder.Build(language);
+            if (_interviewBuilder.RespondentSurveyState(respondentId))
+            {
+                return null;
+            }
+            return _interviewBuilder.Build(language, respondentId);
         }
     }
 }
