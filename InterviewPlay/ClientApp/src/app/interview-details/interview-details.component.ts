@@ -4,7 +4,8 @@ import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-interview-details',
-  templateUrl: './interview-details.component.html'
+  templateUrl: './interview-details.component.html',
+  styleUrls: ['./interview-details.component.css']
 })
 export class InterviewDetailsComponent {
   public surveydetails: SurveyDetails[];
