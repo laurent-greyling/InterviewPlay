@@ -15,6 +15,10 @@
   padding: 7px 16px;
 }
 
+.padding{
+  margin: 5px 0px 0px 0px;
+}
+
 .maintext {
   font-family: sans-serif, Arial;
   color: darkgrey;
@@ -34,7 +38,7 @@
 }
 
 .questions input[type="radio"] {
-  display: none;
+  opacity: 0 /*Did not know that display:none would not display the error message, this is nice little trick*/
 }
 
 .questions label:before {

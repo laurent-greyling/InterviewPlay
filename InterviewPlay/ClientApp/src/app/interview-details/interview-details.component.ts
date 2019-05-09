@@ -15,6 +15,7 @@ export class InterviewDetailsComponent {
   public noAnswers: boolean;
   public respondentId = '' as string;
   public interviewStarted: boolean;
+  public invalidRespondentId: boolean;
 
   constructor(public http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUri = baseUrl;
@@ -35,7 +36,11 @@ export class InterviewDetailsComponent {
     var pattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
     if (this.respondentId !== '' && pattern.test(this.respondentId) === true) {
       this.interviewStarted = true;
-    }    
+      this.invalidRespondentId = false;
+    } else
+    {
+      this.invalidRespondentId = true;
+    }   
   }
 
   //Set page based on language selected
