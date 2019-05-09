@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using InterviewPlay.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace InterviewPlay.Services
 {
+    /// <summary>
+    /// this entire class needs work as sql injection can happen. need to paramtarise it all.
+    /// </summary>
     public class SqlClient : ISqlClient
     {
         private SurveyDbContext _context;
