@@ -13,9 +13,9 @@ namespace InterviewPlay.Controllers
     {
         private ISqlClient _client;
 
-        public RespondentDataController()
+        public RespondentDataController(ISqlClient client)
         {
-            _client = new SqlClient();
+            _client = client;
         }
 
         [HttpPost("PostResponse", Name = "response")]
@@ -44,7 +44,7 @@ namespace InterviewPlay.Controllers
             {
                 return this.NoContent();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return this.BadRequest();
             }

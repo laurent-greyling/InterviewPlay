@@ -15,7 +15,7 @@ namespace InterviewPlay.Services
         /// Create table for holding respondents who submitted their questionnaires
         /// </summary>
         /// <param name="surveyId"></param>
-        void CreateRespondentTableIfNotExist(int surveyId);
+        Task CreateRespondentTableIfNotExistAsync(int surveyId);
 
         /// <summary>
         /// Insert Answers into DB

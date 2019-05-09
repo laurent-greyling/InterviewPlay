@@ -16,7 +16,7 @@ namespace InterviewPlay.Services
             _context = new SurveyDbContext();
         }
 
-        public void CreateRespondentTableIfNotExist(int surveyId)
+        public async Task CreateRespondentTableIfNotExistAsync(int surveyId)
         {
             var createIfNotExist = $@"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
            WHERE TABLE_NAME = N'RespondentFinished_{surveyId}')
@@ -26,7 +26,7 @@ BEGIN
     IsFinished BIT DEFAULT 0,
 );
 END";
-            _context.Database.ExecuteSqlCommandAsync(createIfNotExist);
+            await _context.Database.ExecuteSqlCommandAsync(createIfNotExist);
         }
 
         public async Task CreateSurveyTableIfNotExistAsync(int surveyId)

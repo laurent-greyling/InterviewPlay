@@ -19,10 +19,10 @@ namespace Tests
             _mockInterviewBuilder = new Mock<IBuildInterview>();
             _mockSqlClient = new Mock<ISqlClient>();
             _mockInterviewBuilder.Setup(c => c.Build("en", "respondentId")).Returns(It.IsAny<SurveyModel>());
-            _mockSqlClient.Setup(s => s.CreateRespondentTableIfNotExist(123));
+            _mockSqlClient.Setup(s => s.CreateRespondentTableIfNotExistAsync(123));
             _mockSqlClient.Setup(s => s.InsertRespodentDetails(123, "respondentId"));
 
-            _target = new BuildInterview(File.ReadAllText("../../../questionnaire.json"));
+            _target = new BuildInterview(_mockSqlClient.Object, File.ReadAllText("../../../questionnaire.json"));
         }
 
         [Test]

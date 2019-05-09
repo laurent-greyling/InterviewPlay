@@ -1,3 +1,4 @@
+using InterviewPlay.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -21,6 +22,8 @@ namespace InterviewPlay
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.Add(new ServiceDescriptor(typeof(IBuildInterview), typeof(BuildInterview), ServiceLifetime.Transient));
+            services.Add(new ServiceDescriptor(typeof(ISqlClient), typeof(SqlClient), ServiceLifetime.Transient));
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

@@ -1,4 +1,5 @@
 ﻿using InterviewPlay.Models;
+using System.Threading.Tasks;
 
 namespace InterviewPlay.Services
 {
@@ -17,6 +18,6 @@ namespace InterviewPlay.Services
         /// </summary>
         /// <param name="respondentId"></param>
         /// <returns></returns>
-        bool RespondentSurveyState(string respondentId);
+        Task<bool> RespondentSurveyState(string respondentId);
     }
 }

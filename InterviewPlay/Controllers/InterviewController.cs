@@ -1,6 +1,7 @@
 ﻿using InterviewPlay.Models;
 using InterviewPlay.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace InterviewPlay.Controllers
 {
@@ -9,15 +10,15 @@ namespace InterviewPlay.Controllers
     {
         private IBuildInterview _interviewBuilder;
 
-        public InterviewController()
+        public InterviewController(IBuildInterview interviewBuilder)
         {
-            _interviewBuilder = new BuildInterview();
+            _interviewBuilder = interviewBuilder;
         }
 
         [Route("[action]/{language}/{respondentId}")]
-        public SurveyModel InterviewDetails(string language, string respondentId)
+        public async Task<SurveyModel> InterviewDetails(string language, string respondentId)
         {
-            if (_interviewBuilder.RespondentSurveyState(respondentId))
+            if (await _interviewBuilder.RespondentSurveyState(respondentId))
             {
                 return null;
             }

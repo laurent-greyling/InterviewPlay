@@ -1,6 +1,7 @@
 ﻿using InterviewPlay.Models;
 using Newtonsoft.Json;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace InterviewPlay.Services
 {
@@ -17,7 +18,7 @@ namespace InterviewPlay.Services
         /// Initialise the BuildInterview
         /// </summary>
         /// <param name="surveyJson">This can be used to send different Json file as questionnaire. Only here now of using the demo Json for project</param>
-        public BuildInterview(string surveyJson = "")
+        public BuildInterview(ISqlClient client, string surveyJson = "")
         {
             //This is for the purpose of this project, I use the surveyJson to pass in the json from tests
             if (string.IsNullOrEmpty(surveyJson))
@@ -25,12 +26,11 @@ namespace InterviewPlay.Services
                 surveyJson = File.ReadAllText("questionnaire.json");
             }
             _survey = JsonConvert.DeserializeObject<SurveyModel>(surveyJson);
-            _client = new SqlClient();
+            _client = client;
         }
 
         public SurveyModel Build(string language, string respondentId)
         {
-            _client.CreateRespondentTableIfNotExist(_survey.QuestionnaireId);
             _client.InsertRespodentDetails(_survey.QuestionnaireId, respondentId);
 
             foreach (var subject in _survey.QuestionnaireItems)
@@ -54,8 +54,14 @@ namespace InterviewPlay.Services
             return _survey;
         }
 
-        public bool RespondentSurveyState(string respondentId)
+        /// <summary>
+        /// Check if respondent has finished a survey already or not
+        /// </summary>
+        /// <param name="respondentId"></param>
+        /// <returns></returns>
+        public async Task<bool> RespondentSurveyState(string respondentId)
         {
+            await _client.CreateRespondentTableIfNotExistAsync(_survey.QuestionnaireId);
             return _client.RespondentCompleted(_survey.QuestionnaireId, respondentId);
         }
     }

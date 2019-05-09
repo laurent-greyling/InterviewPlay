@@ -2,8 +2,6 @@
   <div class="container">
     <h1 class="maintext">Interview Details</h1>
 
-    <!--<p *ngIf="!surveydetails"><em>Loading...</em></p>-->
-
     <div>
       <input type="button" value="Start" (click)="start()" *ngIf="!isFinished && !interviewStarted" class="btn btn-info btn-block my-4 buttontext" />
       <input type="button" value="Continue" (click)="continue()" *ngIf="!isFinished && !interviewStarted" class="btn btn-info btn-block my-4 buttontext" />
