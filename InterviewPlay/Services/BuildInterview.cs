@@ -1,5 +1,7 @@
 ﻿using InterviewPlay.Models;
 using Newtonsoft.Json;
+using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -20,6 +22,10 @@ namespace InterviewPlay.Services
         /// <param name="surveyJson">This can be used to send different Json file as questionnaire. Only here now of using the demo Json for project</param>
         public BuildInterview(ISqlClient client, string surveyJson = "")
         {
+            //this is currently substitute for logging
+            //Where this is we would want logging, real logging
+            Debug.WriteLine($"Initialise BuildInterview controller");
+
             //This is for the purpose of this project, I use the surveyJson to pass in the json from tests
             if (string.IsNullOrEmpty(surveyJson))
             {
@@ -31,6 +37,10 @@ namespace InterviewPlay.Services
 
         public SurveyModel Build(string language, string respondentId)
         {
+            //this is currently substitute for logging
+            //Where this is we would want logging, real logging
+            Debug.WriteLine($"Build survey for respondent {respondentId} with language {language}");
+
             _client.InsertRespodentDetails(_survey.QuestionnaireId, respondentId);
 
             foreach (var subject in _survey.QuestionnaireItems)
@@ -61,6 +71,10 @@ namespace InterviewPlay.Services
         /// <returns></returns>
         public async Task<bool> RespondentSurveyState(string respondentId)
         {
+            //this is currently substitute for logging
+            //Where this is we would want logging, real logging
+            Debug.WriteLine($"Check if {respondentId} has already completed the interview");
+
             await _client.CreateRespondentTableIfNotExistAsync(_survey.QuestionnaireId);
             return _client.RespondentCompleted(_survey.QuestionnaireId, respondentId);
         }

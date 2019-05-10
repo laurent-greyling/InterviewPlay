@@ -16,6 +16,7 @@ export class InterviewDetailsComponent {
   public respondentId = '' as string;
   public interviewStarted: boolean;
   public invalidRespondentId: boolean;
+  public hasError: boolean;
 
   constructor(public http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUri = baseUrl;
@@ -50,8 +51,12 @@ export class InterviewDetailsComponent {
         this.isFinished = true;
       } else {
         this.surveydetails = result;
-      }      
-    }, error => console.error(error));
+      }
+      this.hasError = false;
+    }, error => {
+      this.hasError = true;
+      console.error(error);
+    });
   }
 
   onSelect(selectedAnswerJson: string, ) {
@@ -78,9 +83,13 @@ export class InterviewDetailsComponent {
 
     if (answers.length > 0) {
       this.http.post(url, answers).subscribe(result => {
-        this.isFinished = true;
-        this.noAnswers = false;
-      }, error => { })
+          this.isFinished = true;
+          this.noAnswers = false;
+          this.hasError = false;
+      }, error => {
+        this.hasError = true;
+        console.error(error);
+        })
     } else {
       this.noAnswers = true;
     }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using InterviewPlay.Models;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,10 @@ namespace InterviewPlay.Services
 
         public async Task CreateRespondentTableIfNotExistAsync(int surveyId)
         {
+            //this is currently substitute for logging
+            //Where this is we would want logging, real logging
+            Debug.WriteLine($"Check if table for respondent finish state for survey {surveyId} exist, if not create");
+
             var createIfNotExist = $@"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
            WHERE TABLE_NAME = N'RespondentFinished_{surveyId}')
 BEGIN
@@ -31,6 +36,10 @@ END";
 
         public async Task CreateSurveyTableIfNotExistAsync(int surveyId)
         {
+            //this is currently substitute for logging
+            //Where this is we would want logging, real logging
+            Debug.WriteLine($"Create survey answer data table for {surveyId}");
+
             //Currently this string is not safe. need it paramaterized to protect against sql injection
             var createIfNotExist = $@"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
            WHERE TABLE_NAME = N'RespondentAnswer_{surveyId}')
@@ -68,6 +77,10 @@ OpenAnswer) VALUES (
 
         public void InsertRespodentDetails(int surveyId, string respondentId)
         {
+            //this is currently substitute for logging
+            //Where this is we would want logging, real logging
+            Debug.WriteLine($"Insert respondent {respondentId} for survey {surveyId} into RespondentFinished table with finished state as false");
+
             var insertAsnswers = $@"INSERT INTO RespondentFinished_{surveyId} (RespondentId) VALUES ('{respondentId}')";
 
             _context.Database.ExecuteSqlCommandAsync(insertAsnswers);
@@ -82,6 +95,10 @@ OpenAnswer) VALUES (
 
         public void UpdateRespodentDetails(int surveyId, string respondentId)
         {
+            //this is currently substitute for logging
+            //Where this is we would want logging, real logging
+            Debug.WriteLine($"Update respondent {respondentId} finsish state for survey {surveyId}");
+
             var insertAsnswers = $@"UPDATE RespondentFinished_{surveyId} SET IsFinished = 1 WHERE RespondentId='{respondentId}'";
 
             _context.Database.ExecuteSqlCommandAsync(insertAsnswers);
