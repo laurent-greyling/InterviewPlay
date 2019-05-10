@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using InterviewPlay.Models;
@@ -66,13 +67,18 @@ SubjectId,
 QuestionId,
 CategoryId,
 OpenAnswer) VALUES (
-'{answers.RespondentId}',
-{answers.SubjectId},
-{answers.QuestionId},
-{answers.CategoryId},
-'{answers.OpenAnswer}')";
+@respondentId,
+@subjectId,
+@questionId,
+@categoryId,
+@openAnswer)";
 
-           await _context.Database.ExecuteSqlCommandAsync(insertAsnswers);
+           await _context.Database.ExecuteSqlCommandAsync(insertAsnswers,
+               new SqlParameter("@respondentId", answers.RespondentId),
+               new SqlParameter("@subjectId", answers.SubjectId),
+               new SqlParameter("@questionId", answers.QuestionId),
+               new SqlParameter("@categoryId", answers.CategoryId),
+               new SqlParameter("@openAnswer", answers.OpenAnswer == null ? string.Empty : answers.OpenAnswer));
         }
 
         public void InsertRespodentDetails(int surveyId, string respondentId)
@@ -81,15 +87,15 @@ OpenAnswer) VALUES (
             //Where this is we would want logging, real logging
             Debug.WriteLine($"Insert respondent {respondentId} for survey {surveyId} into RespondentFinished table with finished state as false");
 
-            var insertAsnswers = $@"INSERT INTO RespondentFinished_{surveyId} (RespondentId) VALUES ('{respondentId}')";
+            var insertAsnswers = $@"INSERT INTO RespondentFinished_{surveyId} (RespondentId) VALUES (@respondentId)";
 
-            _context.Database.ExecuteSqlCommandAsync(insertAsnswers);
+            _context.Database.ExecuteSqlCommandAsync(insertAsnswers, new SqlParameter("@respondentId", respondentId));
         }
 
         public bool RespondentCompleted(int surveyId, string respondentId)
         {
-            var respondentstate = $"SELECT * FROM RespondentFinished_{surveyId} WHERE RespondentId = '{respondentId}'";
-            var respondent = _context.RespondentFinalState.FromSql(respondentstate).ToList();
+            var respondentstate = $"SELECT * FROM RespondentFinished_{surveyId} WHERE RespondentId = @respondentId";
+            var respondent = _context.RespondentFinalState.FromSql(respondentstate, new SqlParameter("@respondentId", respondentId)).ToList();
             return respondent.Count > 0 ? respondent.First().IsFinished : false;
         }
 
@@ -99,9 +105,9 @@ OpenAnswer) VALUES (
             //Where this is we would want logging, real logging
             Debug.WriteLine($"Update respondent {respondentId} finsish state for survey {surveyId}");
 
-            var insertAsnswers = $@"UPDATE RespondentFinished_{surveyId} SET IsFinished = 1 WHERE RespondentId='{respondentId}'";
+            var insertAsnswers = $@"UPDATE RespondentFinished_{surveyId} SET IsFinished = 1 WHERE RespondentId=@respondentId";
 
-            _context.Database.ExecuteSqlCommandAsync(insertAsnswers);
+            _context.Database.ExecuteSqlCommandAsync(insertAsnswers, new SqlParameter("@respondentId", respondentId));
         }
     }
 }
