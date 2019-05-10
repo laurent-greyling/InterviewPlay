@@ -1,6 +1,7 @@
 ﻿using InterviewPlay.Models;
 using InterviewPlay.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace InterviewPlay.Controllers
@@ -18,11 +19,25 @@ namespace InterviewPlay.Controllers
         [Route("[action]/{language}/{respondentId}")]
         public async Task<SurveyModel> InterviewDetails(string language, string respondentId)
         {
-            if (await _interviewBuilder.RespondentSurveyState(respondentId))
+            try
             {
-                return null;
+                //this is currently substitute for logging
+                //Where this is we would want logging, real logging
+                Debug.WriteLine($"Start building the interview for respondent {respondentId}");
+
+                if (await _interviewBuilder.RespondentSurveyState(respondentId))
+                {
+                    return null;
+                }
+                return _interviewBuilder.Build(language, respondentId);
             }
-            return _interviewBuilder.Build(language, respondentId);
+            catch (System.Exception e)
+            {
+                //this is currently substitute for logging
+                //Where this is we would want logging, real logging
+                Debug.WriteLine(e.Message);
+                throw;
+            }            
         }
     }
 }

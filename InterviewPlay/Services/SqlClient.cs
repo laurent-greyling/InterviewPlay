@@ -1,23 +1,27 @@
-﻿using System.Linq;
+﻿using System.Data.SqlClient;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using InterviewPlay.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace InterviewPlay.Services
 {
-    /// <summary>
-    /// this entire class needs work as sql injection can happen. need to paramtarise it all.
-    /// </summary>
+    
     public class SqlClient : ISqlClient
     {
-        private SurveyDbContext _context;
-        public SqlClient()
+        private ISurveyDbContext _context;
+        public SqlClient(ISurveyDbContext context)
         {
-            _context = new SurveyDbContext();
+            _context = context;
         }
 
         public async Task CreateRespondentTableIfNotExistAsync(int surveyId)
         {
+            //this is currently substitute for logging
+            //Where this is we would want logging, real logging
+            Debug.WriteLine($"Check if table for respondent finish state for survey {surveyId} exist, if not create");
+
             var createIfNotExist = $@"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
            WHERE TABLE_NAME = N'RespondentFinished_{surveyId}')
 BEGIN
@@ -31,7 +35,10 @@ END";
 
         public async Task CreateSurveyTableIfNotExistAsync(int surveyId)
         {
-            //Currently this string is not safe. need it paramaterized to protect against sql injection
+            //this is currently substitute for logging
+            //Where this is we would want logging, real logging
+            Debug.WriteLine($"Create survey answer data table for {surveyId}");
+
             var createIfNotExist = $@"IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES
            WHERE TABLE_NAME = N'RespondentAnswer_{surveyId}')
 BEGIN
@@ -50,41 +57,57 @@ END";
 
         public async Task InsertAnswersAsync(RespondentAnswerModel answers)
         {
-            //Currently this string is not safe. need it paramaterized to protect against sql injection
+            //parametarize atleast the fields that is user input.
             var insertAsnswers = $@"INSERT INTO RespondentAnswer_{answers.SurveyId} (
 RespondentId,
 SubjectId,
 QuestionId,
 CategoryId,
 OpenAnswer) VALUES (
-'{answers.RespondentId}',
-{answers.SubjectId},
-{answers.QuestionId},
-{answers.CategoryId},
-'{answers.OpenAnswer}')";
+@respondentId,
+@subjectId,
+@questionId,
+@categoryId,
+@openAnswer)";
 
-           await _context.Database.ExecuteSqlCommandAsync(insertAsnswers);
+           await _context.Database.ExecuteSqlCommandAsync(insertAsnswers,
+               new SqlParameter("@respondentId", answers.RespondentId),
+               new SqlParameter("@subjectId", answers.SubjectId),
+               new SqlParameter("@questionId", answers.QuestionId),
+               new SqlParameter("@categoryId", answers.CategoryId),
+               new SqlParameter("@openAnswer", answers.OpenAnswer == null ? string.Empty : answers.OpenAnswer));
         }
 
         public void InsertRespodentDetails(int surveyId, string respondentId)
         {
-            var insertAsnswers = $@"INSERT INTO RespondentFinished_{surveyId} (RespondentId) VALUES ('{respondentId}')";
+            //this is currently substitute for logging
+            //Where this is we would want logging, real logging
+            Debug.WriteLine($"Insert respondent {respondentId} for survey {surveyId} into RespondentFinished table with finished state as false");
 
-            _context.Database.ExecuteSqlCommandAsync(insertAsnswers);
+            //parametarize atleast the fields that is user input.
+            var insertAsnswers = $@"INSERT INTO RespondentFinished_{surveyId} (RespondentId) VALUES (@respondentId)";
+
+            _context.Database.ExecuteSqlCommandAsync(insertAsnswers, new SqlParameter("@respondentId", respondentId));
         }
 
         public bool RespondentCompleted(int surveyId, string respondentId)
         {
-            var respondentstate = $"SELECT * FROM RespondentFinished_{surveyId} WHERE RespondentId = '{respondentId}'";
-            var respondent = _context.RespondentFinalState.FromSql(respondentstate).ToList();
+            //parametarize atleast the fields that is user input.
+            var respondentstate = $"SELECT * FROM RespondentFinished_{surveyId} WHERE RespondentId = @respondentId";
+            var respondent = _context.RespondentFinalState.FromSql(respondentstate, new SqlParameter("@respondentId", respondentId)).ToList();
             return respondent.Count > 0 ? respondent.First().IsFinished : false;
         }
 
         public void UpdateRespodentDetails(int surveyId, string respondentId)
         {
-            var insertAsnswers = $@"UPDATE RespondentFinished_{surveyId} SET IsFinished = 1 WHERE RespondentId='{respondentId}'";
+            //this is currently substitute for logging
+            //Where this is we would want logging, real logging
+            Debug.WriteLine($"Update respondent {respondentId} finsish state for survey {surveyId}");
 
-            _context.Database.ExecuteSqlCommandAsync(insertAsnswers);
+            //parametarize atleast the fields that is user input.
+            var insertAsnswers = $@"UPDATE RespondentFinished_{surveyId} SET IsFinished = 1 WHERE RespondentId=@respondentId";
+
+            _context.Database.ExecuteSqlCommandAsync(insertAsnswers, new SqlParameter("@respondentId", respondentId));
         }
     }
 }

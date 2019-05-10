@@ -53,5 +53,6 @@
     </form>
 
     <label *ngIf="isFinished" class="alert alert-success maintext padding">You submitted your survey</label>
+    <label *ngIf="hasError" class="alert alert-danger maintext padding">Well, this is imbarrassing, something unexpected happend. We cannot process the request right now.</label>
   </div>
 </div>
