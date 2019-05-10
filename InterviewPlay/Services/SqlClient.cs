@@ -10,10 +10,10 @@ namespace InterviewPlay.Services
     
     public class SqlClient : ISqlClient
     {
-        private SurveyDbContext _context;
-        public SqlClient()
+        private ISurveyDbContext _context;
+        public SqlClient(ISurveyDbContext context)
         {
-            _context = new SurveyDbContext();
+            _context = context;
         }
 
         public async Task CreateRespondentTableIfNotExistAsync(int surveyId)

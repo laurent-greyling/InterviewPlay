@@ -1,12 +1,9 @@
-﻿using InterviewPlay.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace InterviewPlay.Services
 {
-    public class SurveyDbContext: DbContext
+    public class SurveyDbContext: ISurveyDbContext
     {
-        public virtual DbSet<RespondentFinishedEntity> RespondentFinalState { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //Add sql server connection string here

@@ -24,6 +24,7 @@ namespace InterviewPlay
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.Add(new ServiceDescriptor(typeof(IBuildInterview), typeof(BuildInterview), ServiceLifetime.Transient));
             services.Add(new ServiceDescriptor(typeof(ISqlClient), typeof(SqlClient), ServiceLifetime.Transient));
+            services.Add(new ServiceDescriptor(typeof(ISurveyDbContext), typeof(SurveyDbContext), ServiceLifetime.Transient));
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
