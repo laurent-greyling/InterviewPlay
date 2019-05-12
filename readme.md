@@ -62,6 +62,17 @@ useful links
 [4](https://hjerpbakk.com/blog/2018/06/25/aspnet-react-and-docker)
 
 
+Powershell:
+Login to azure account
+Connect-AzureRmAccount
+Import-Module SurveyEnvironment.psm1 -force
+
+check appsettings for database info
+
+
+
+
+
 
 
 
