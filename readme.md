@@ -55,6 +55,13 @@ ENTRYPOINT ["dotnet", "InterviewPlay.dll"]
 
 <----------->
 
+useful links
+[1](https://codeburst.io/enter-asp-net-core-2-and-angular-5-applications-with-docker-48fec0eaa4d9)
+[2](https://medium.com/the-code-review/top-10-docker-commands-you-cant-live-without-54fb6377f481)
+[3](https://docs.docker.com/v17.09/get-started/part2/)
+[4](https://hjerpbakk.com/blog/2018/06/25/aspnet-react-and-docker)
+
+
 
 
 
