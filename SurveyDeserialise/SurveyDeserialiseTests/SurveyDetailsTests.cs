@@ -22,6 +22,7 @@ namespace Tests
             _mockQuestionnaireItem = new Mock<DbSet<QuestionnaireItemEntity>>();
             _mockContext = new Mock<SurveyDbContext>();
 
+            _mockContext.Setup(m => m._connectionString).Returns("myconnectionstring");
             _mockContext.Setup(m => m.Categories.Add(It.IsAny<CategoryEntity>())).Returns(_mockCategory.Object.Add(It.IsAny<CategoryEntity>()));
             _mockContext.Setup(m => m.Questionnaire.Add(It.IsAny<QuestionnaireEntity>())).Returns(_mockQuestionnaire.Object.Add(It.IsAny<QuestionnaireEntity>()));
             _mockContext.Setup(m => m.QuestionnaireItem.Add(It.IsAny<QuestionnaireItemEntity>())).Returns(_mockQuestionnaireItem.Object.Add(It.IsAny<QuestionnaireItemEntity>()));

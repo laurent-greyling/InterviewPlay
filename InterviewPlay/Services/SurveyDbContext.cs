@@ -1,14 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace InterviewPlay.Services
 {
     public class SurveyDbContext: ISurveyDbContext
     {
+        IConfiguration _config;
+        public SurveyDbContext(IConfiguration config)
+        {
+            _config = config;
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //Add sql server connection string here
-            //If this was not internal tool/play project I would move this to keyvault or something, this could cause possible security issues
-            optionsBuilder.UseSqlServer("");
+            //would like this to rather be in dotnet secrets for local development and keyvault for production. 
+            optionsBuilder.UseSqlServer(_config.GetConnectionString("SurveyDataBase"));
         }
     }
 }

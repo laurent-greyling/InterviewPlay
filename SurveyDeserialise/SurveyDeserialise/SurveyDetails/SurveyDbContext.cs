@@ -17,11 +17,23 @@ namespace SurveyDeserialise.SurveyDetails
 
         public virtual DbSet<CategoryEntity> Categories { get; set; }
 
+        public virtual string _connectionString { get; set; }
+
+        /// <summary>
+        /// For testing
+        /// </summary>
+        public SurveyDbContext()
+        {        
+        }
+
+        public SurveyDbContext(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //Add sql server connection string here
-            //If this was not internal tool/play project I would move this to keyvault or something, this could cause possible security issues
-            optionsBuilder.UseSqlServer("");            
+            optionsBuilder.UseSqlServer(_connectionString);            
         }
     }
 }
