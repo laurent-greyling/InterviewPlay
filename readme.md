@@ -8,7 +8,7 @@ For this project to run correctly a `powershell` was created which will setup th
 
 1. In Powershell (Preferably in Admin mode) go to the folder directory `\InterviewPlay`
 2. Run `Connect-AzureRmAccount` and sign in to your azure account
-3. Run `Import-Module SurveyEnvironment.psm1 -force`
+3. Run `Import-Module .\SurveyEnvironment.psm1 -force`
 4. Run `Initialise -resourceGroupName "<your chosen resource group name>"`
 
 This will:
@@ -19,9 +19,9 @@ This will:
 4. Create a Database (this is database: `$resourceGroupName + "db"` the interview will use)
 5. Replace the connectionstring value in the `appsettings.json` file
 6. Start `docker-compose build` => this will show red text, give it a second or two, it will start the build.
-7. Start a `docker run -p 3000:80 <container name>`
+7. Start a `docker run -p 5000:80 interviewrun` (interviewrun as per the docker-compose.yml)
 
-After this script has run you can use `http://localhost:3000/`  to see the survey run. If the `docker-compose build` doesn't start up then try doing it seperate from this script.
+After this script has run you can use `http://localhost:5000/`  to see the survey run. If the `docker-compose build` doesn't start up then try doing it seperate from this script.
 
 __Note__ if you do an interview and want to see answers in the database, check your `appsettings.json` for the needed information.
 

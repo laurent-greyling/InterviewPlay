@@ -9,6 +9,7 @@
         #Create a resource group
         Write-Host "Creating resource group $resourceGroupName" -ForegroundColor Green
 
+        #This is to check if the resource exist and only create if not exist
         Get-AzureRmResourceGroup -Name $resourceGroupName -ErrorVariable notPresent -ErrorAction SilentlyContinue
 
         if ($notPresent) {
@@ -18,7 +19,6 @@
         Write-Host "Resource group $resourceGroupName created" -ForegroundColor Green
 
         #create sql server
-
         Write-Host "Create sql server"  -ForegroundColor Green
 
         $sqlServerName = $resourceGroupName.ToLower() + "server"
@@ -26,9 +26,10 @@
 
         #Should hash or randomise this, but for this excersise this will do just fine
         $serverPassword = $databaseName + $sqlServerName + "!!54!!321"
-
         $userName = $databaseName + "admin"
 
+        #check if the sql serrver exist. If not create it and the database. If you delete the database in any other way besides running the cleanup script 
+        #this will then not create a new database for you. you will have to cleanup environment or manually create your db again
         Get-AzureRmSqlServer -ServerName $sqlServerName -ResourceGroupName $resourceGroupName -ErrorVariable noServer -ErrorAction SilentlyContinue
 
         if($noServer){
@@ -44,6 +45,7 @@
              -ServerVersion "12.0" `
              -SqlAdministratorCredentials $credential
              
+             #get the ip for the firewall rules to allow your pc access to the sql server for development
              $ip = Invoke-WebRequest 'https://api.ipify.org' | Select-Object -ExpandProperty Content
 
              Write-Host "Creating Firewall rules for $sqlServerName" -ForegroundColor Green
@@ -77,14 +79,16 @@
         $json.ConnectionStrings.SurveyDataBase = $connectionString
         $json | ConvertTo-Json | Out-File -FilePath ".\InterviewPlay/appsettings.json"
 
+        #Docker compose build
         Write-Host "Starting docker-compose build" -ForegroundColor Green
         Write-Host "This might show some red text complaining about docker-compose, give it a few seconds. It should start the docker build and there after the docker run. If it does not build and run, then check that the appsettings changed and run docker build and run seperate from this script" -ForegroundColor Yellow
         docker-compose build
 
         Write-Host "Starting docker run" -ForegroundColor Green
-        Write-Host "once running go to http://localhost:3000/" -ForegroundColor Yellow
+        Write-Host "once running go to http://localhost:5000/" -ForegroundColor Yellow
 
-        docker run -p 3000:80 interviewplay_web 
+        #docker run
+        docker run -p 5000:80 interviewrun
     }
     catch{
         write-host "Exception Message: $($_.Exception.Message)" -ForegroundColor Red

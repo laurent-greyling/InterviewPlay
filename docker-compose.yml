@@ -1,6 +1,8 @@
 version: '3'
 services:
   web:
-    build: .
+    container_name: interview
+    build: .    
+    image: interviewrun:latest
     ports:
      - "5000:5000"
