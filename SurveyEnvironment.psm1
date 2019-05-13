@@ -96,6 +96,35 @@
     
 }
 
+function PushToAzureContainerRegistry{
+    param(
+        [string] $resourceGroupName
+    )
+
+    #create container registry
+    Write-Host "Create container registry" -ForegroundColor Green
+    $regName = $resourceGroupName + "container001"
+    $registry = New-AzureRmContainerRegistry -ResourceGroupName $resourceGroupName -Name $regName -EnableAdminUser -Sku Basic
+    $creds = Get-AzureRmContainerRegistryCredential -Registry $registry
+
+    $creds.Password | docker login $registry.LoginServer -u $creds.Username --password-stdin
+
+    $acrLoginServer = "$regName.azurecr.io"
+    $tag = "$acrLoginServer/interviewrun:v1"
+
+    Write-Host "tag docker image" -ForegroundColor Green
+    docker tag interviewrun $tag
+
+    Write-Host "Push to registry" -ForegroundColor Green
+    docker push $tag
+
+    #I do this so when docker run start it will say cannot find and will pull, this show some level that it was pushed
+    docker rmi $tag
+
+    Write-Host "Run http://localhost:3000/ " -ForegroundColor Green
+    docker run -p 3000:80 $tag
+}
+
 function CleanUpSurveyResources{
     param(
         [string] $resourceGroupName
@@ -110,4 +139,5 @@ function CleanUpSurveyResources{
 }
 
 Export-ModuleMember -Function Initialise
+Export-ModuleMember -Function PushToAzureContainerRegistry
 Export-ModuleMember -Function CleanUpSurveyResources

@@ -25,6 +25,15 @@ After this script has run you can use `http://localhost:5000/`  to see the surve
 
 __Note__ if you do an interview and want to see answers in the database, check your `appsettings.json` for the needed information.
 
+If this has run correctly you can strop the docker run and run:
+
+`PushToAzureContainerRegistry -resourceGroupName "<your chosen resource group name>"`
+
+This will:
+1. Create a Container registry in Azure
+2. Tag and push your docker image to the azure registry created
+3. Pull and run this image on `http://localhost:3000/`
+
 Once you have finished testing or looking at the interview and checked all is saved into the DB. 
 
 Run:
